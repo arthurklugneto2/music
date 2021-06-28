@@ -1,8 +1,10 @@
-public class Note {
+package music;
+
+public class Key {
 
     private String code;
 
-    public Note(String code){
+    public Key(String code){
         this.code = code;
     }
 

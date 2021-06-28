@@ -1,3 +1,5 @@
+package music;
+
 public class Interval {
 
     private String code;

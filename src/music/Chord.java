@@ -1,3 +1,5 @@
+package music;
+
 public class Chord {
 
     private String code;
@@ -32,7 +34,7 @@ public class Chord {
         return alias;
     }
 
-    public String getAlias(Note note) {
+    public String getAlias(Key note) {
         return alias.replaceAll("X",note.getCode());
     }
 

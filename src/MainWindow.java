@@ -1,20 +1,30 @@
+import com.bulenkov.darcula.DarculaLaf;
+import music.Chord;
+import music.ChordService;
+import music.Component.KeyboardComponent;
+import music.Data;
+import music.Key;
+
 import javax.swing.*;
-import javax.swing.event.ListDataEvent;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.plaf.basic.BasicLookAndFeel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainWindow {
 
     private JPanel rootPanel;
     private JComboBox chKeycb;
     private JComboBox chChordcb;
+    private KeyboardComponent chordKeyboard;
 
     private static Data data;
+    private ChordService chordService;
 
     public static void main(String[] args) {
 
         try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+            BasicLookAndFeel darcula = new DarculaLaf();
+            UIManager.setLookAndFeel(darcula);
         } catch(Exception ignored){}
 
         data = new Data();
@@ -28,15 +38,25 @@ public class MainWindow {
     }
 
     public MainWindow(){
+        chordService = new ChordService();
+
         populateChordKeysComboBox();
         populateChordChordsComboBox();
-        //        chKeycb.addActionListener(e -> {
-        //            System.out.println("dsdsad");
-        //        });
+
+        chKeycb.addActionListener(e -> {
+            updateChordKeyboard();
+        });
+        chChordcb.addActionListener(e -> {
+            updateChordKeyboard();
+        });
+
     }
 
+    // ====================================================
+    // UI
+    // ====================================================
     private void populateChordKeysComboBox(){
-        for(Note key: data.getKeys()){
+        for(Key key: data.getKeys()){
             chKeycb.addItem(key);
         }
     }
@@ -47,4 +67,36 @@ public class MainWindow {
         }
     }
 
+    // ====================================================
+    // Event Handler
+    // ====================================================
+    private void updateChordKeyboard(){
+        chordKeyboard.setKeys(
+                chordService.generateChord(
+                        (Key)chKeycb.getSelectedItem(),
+                        (Chord) chChordcb.getSelectedItem()
+                        ));
+    }
+
 }
+
+//        List<KeyboardComponent.Note> keys = new ArrayList<>();
+//        keys.add( new KeyboardComponent.Note(1,"C",false) );
+//        keys.add( new KeyboardComponent.Note(1,"C#",false) );
+//        keys.add( new KeyboardComponent.Note(1,"D",true) );
+//        keys.add( new KeyboardComponent.Note(1,"D#",false) );
+//        keys.add( new KeyboardComponent.Note(1,"E",false) );
+//        keys.add( new KeyboardComponent.Note(1,"F",false) );
+//        keys.add( new KeyboardComponent.Note(1,"F#",true) );
+//        keys.add( new KeyboardComponent.Note(1,"G",false) );
+//        keys.add( new KeyboardComponent.Note(1,"G#",false) );
+//        keys.add( new KeyboardComponent.Note(1,"A",true) );
+//        keys.add( new KeyboardComponent.Note(1,"A#",false) );
+//        keys.add( new KeyboardComponent.Note(1,"B",false) );
+//        keys.add( new KeyboardComponent.Note(2,"C",false) );
+//        keys.add( new KeyboardComponent.Note(2,"C#",false) );
+//        keys.add( new KeyboardComponent.Note(2,"D",false) );
+//        keys.add( new KeyboardComponent.Note(2,"D#",false) );
+//        keys.add( new KeyboardComponent.Note(2,"E",false) );
+//
+//        chordKeyboard.setKeys(null);

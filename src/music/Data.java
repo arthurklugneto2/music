@@ -1,10 +1,11 @@
-import javax.swing.*;
+package music;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Data {
 
-    private List<Note> keys;
+    private List<Key> keys;
     private List<Chord> chords;
 
     public Data(){
@@ -18,23 +19,21 @@ public class Data {
     }
 
     private void generateKeysData(){
-        keys.add(new Note("C"));
-        keys.add(new Note("C#"));
-        keys.add(new Note("D"));
-        keys.add(new Note("D#"));
-        keys.add(new Note("E"));
-        keys.add(new Note("F"));
-        keys.add(new Note("F#"));
-        keys.add(new Note("G"));
-        keys.add(new Note("G#"));
-        keys.add(new Note("A"));
-        keys.add(new Note("A#"));
-        keys.add(new Note("B"));
+        keys.add(new Key("C"));
+        keys.add(new Key("C#"));
+        keys.add(new Key("D"));
+        keys.add(new Key("D#"));
+        keys.add(new Key("E"));
+        keys.add(new Key("F"));
+        keys.add(new Key("F#"));
+        keys.add(new Key("G"));
+        keys.add(new Key("G#"));
+        keys.add(new Key("A"));
+        keys.add(new Key("A#"));
+        keys.add(new Key("B"));
     }
 
     private void generateChordsData(){
-        //chords.add(new Chord("",new String[]{"","",""},new String[]{"",""},"",new String[]{"",""}, new String[]{"",""}));
-
         chords.add(new Chord("Major",new String[]{"1","3","5"},new String[]{"4","3"},
                 "X,Xmaj,XM",new String[]{"3","5"}, new String[]{"5","4"}));
 
@@ -112,7 +111,7 @@ public class Data {
 
     }
 
-    public List<Note> getKeys() {
+    public List<Key> getKeys() {
         return keys;
     }
 
