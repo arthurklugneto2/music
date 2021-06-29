@@ -7,15 +7,17 @@ public class Data {
 
     private List<Key> keys;
     private List<Chord> chords;
+    private List<Scale> scales;
 
     public Data(){
 
         keys = new ArrayList<>();
         chords = new ArrayList<>();
+        scales = new ArrayList<>();
 
         generateKeysData();
         generateChordsData();
-
+        generateScales();
     }
 
     private void generateKeysData(){
@@ -34,7 +36,7 @@ public class Data {
     }
 
     private void generateChordsData(){
-        chords.add(new Chord("Major",new String[]{"1","3","5"},new String[]{"4","3"},
+        chords.add(new Chord("",new String[]{"1","3","5"},new String[]{"4","3"},
                 "X,Xmaj,XM",new String[]{"3","5"}, new String[]{"5","4"}));
 
         chords.add(new Chord("m",new String[]{"1","3b","5"},new String[]{"3","4"},
@@ -89,7 +91,7 @@ public class Data {
                 "X Major, XM9, XMaj7(add9)",new String[]{}, new String[]{}));
 
         chords.add(new Chord("add9",new String[]{"1","3","5","9"},new String[]{"4","3","7"},
-                "C added 9th",new String[]{}, new String[]{}));
+                "X added 9th",new String[]{}, new String[]{}));
 
         chords.add(new Chord("11",new String[]{"1","3","5","7b","9","11"},new String[]{"4","3","3","4","3"},
                 "X dominant 11, X7(add11)",new String[]{}, new String[]{}));
@@ -111,11 +113,22 @@ public class Data {
 
     }
 
+    private void generateScales(){
+        scales.add(new Scale("Major",new String[]{"1","2","3","4","5","6","7"}));
+        scales.add(new Scale("Natural Minor",new String[]{"1","2","3b","4","5","6","7"}));
+        scales.add(new Scale("Natural Harmonic",new String[]{"1","2","3b","4","5","6b","7"}));
+        scales.add(new Scale("Natural Melodic",new String[]{"1","2","3b","4","5","6b","7b"}));
+    }
+
     public List<Key> getKeys() {
         return keys;
     }
 
     public List<Chord> getChords() {
         return chords;
+    }
+
+    public List<Scale> getScales() {
+        return scales;
     }
 }

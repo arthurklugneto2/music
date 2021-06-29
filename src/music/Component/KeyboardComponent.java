@@ -1,8 +1,11 @@
 package music.Component;
 
+import music.Key;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
+import java.util.stream.Collectors;
 import javax.swing.*;
 
 
@@ -25,18 +28,28 @@ public class KeyboardComponent extends JComponent{
             this.key = key;
             this.activated = activated;
         }
+
+        public boolean equals(Key obj) {
+            return this.key.equals(obj.getCode());
+        }
     }
     private List<Note> whiteKeys;
     private List<Note> blackKeys;
+    private List<Note> notes;
+    private Color activatedColor;
 
     public KeyboardComponent(){
         whiteKeys = new ArrayList<>();
         blackKeys = new ArrayList<>();
+        notes = new ArrayList<>();
+
+        activatedColor = Color.YELLOW;
     }
 
     public void setKeys(List<Note> keys){
         whiteKeys = new ArrayList<>();
         blackKeys = new ArrayList<>();
+        notes = new ArrayList<>();
 
         if( keys != null ){
             for(Note note : keys){
@@ -50,11 +63,21 @@ public class KeyboardComponent extends JComponent{
                     note.y = 0;
                     whiteKeys.add(note);
                 }
+                notes.add(note);
             }
             KEYBOARD_SIZE = new Dimension(whiteKeys.size() * KEY_SIZE.width,KEY_SIZE.height);
             BLACK_KEY_SIZE = new Dimension(KEY_SIZE.width/2,(int)(KEY_SIZE.height *.65));
         }
 
+        repaint();
+    }
+
+    public void setActivatedColor(Color color){
+        this.activatedColor = color;
+    }
+
+    public List<Note> getActiveKeys(){
+        return notes.stream().filter(p -> p.activated).collect(Collectors.toList());
     }
 
     @Override
@@ -86,7 +109,7 @@ public class KeyboardComponent extends JComponent{
     }
 
     private void drawWhiteKey(Note note, int x, int y, Graphics2D context){
-        context.setColor( note.activated ? Color.YELLOW : Color.WHITE );
+        context.setColor( note.activated ? activatedColor : Color.WHITE );
         context.fillRoundRect(x,y,KEY_SIZE.width,KEY_SIZE.height,KEY_SIZE.width/10,KEY_SIZE.width/10);
 
         context.setStroke(new BasicStroke(3));
@@ -97,7 +120,7 @@ public class KeyboardComponent extends JComponent{
     }
 
     private void drawBlackKey(Note note, int x, int y, Graphics2D context){
-        context.setColor( note.activated ? Color.YELLOW : Color.BLACK );
+        context.setColor( note.activated ? activatedColor : Color.BLACK );
         context.fillRoundRect(x,y,BLACK_KEY_SIZE.width,BLACK_KEY_SIZE.height,KEY_SIZE.width/10,KEY_SIZE.width/10);
 
         context.setStroke(new BasicStroke(3));
